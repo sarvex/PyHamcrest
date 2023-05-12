@@ -38,11 +38,11 @@ class Raises(BaseMatcher):
         return False
 
     def describe_to(self, description):
-        description.append_text('Expected a callable raising %s' % self.expected)
+        description.append_text(f'Expected a callable raising {self.expected}')
 
     def describe_mismatch(self, item, description):
         if not is_callable(item):
-            description.append_text('%s is not callable' % item)
+            description.append_text(f'{item} is not callable')
             return
 
         function = None if self.function is None else self.function()
@@ -54,10 +54,12 @@ class Raises(BaseMatcher):
         if self.actual is None:
             description.append_text('No exception raised.')
         elif isinstance(self.actual, self.expected) and self.pattern is not None:
-            description.append_text('Correct assertion type raised, but the expected pattern ("%s") not found.' % self.pattern)
+            description.append_text(
+                f'Correct assertion type raised, but the expected pattern ("{self.pattern}") not found.'
+            )
             description.append_text('\n          message was: "%s"' % str(self.actual))
         else:
-            description.append_text('%s was raised instead' % type(self.actual))
+            description.append_text(f'{type(self.actual)} was raised instead')
 
 
 def raises(exception, pattern=None):

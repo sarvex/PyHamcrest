@@ -30,11 +30,17 @@ class IsDictContainingEntriesTest(MatcherTest):
                                     has_entries('a', equal_to(1)), object())
 
     def testMatchesDictLike(self):
+
+
+
         class DictLike(object):
             def __getitem__(self, key):
-                return 'value: ' + str(key)
+                return f'value: {str(key)}'
+
             def __contains__(self, key):
                 return True
+
+
         self.assert_matches('matches a dictionary-like object',
                             has_entries('a', equal_to('value: a')),
                             DictLike())

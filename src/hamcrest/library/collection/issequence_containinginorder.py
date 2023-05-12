@@ -28,7 +28,7 @@ class MatchingInOrder(object):
         matcher = self.matchers[self.next_match_index]
         if not matcher.matches(item):
             if self.mismatch_description:
-                self.mismatch_description.append_text('item ' + str(self.next_match_index) + ': ')
+                self.mismatch_description.append_text(f'item {str(self.next_match_index)}: ')
                 matcher.describe_mismatch(item, self.mismatch_description)
             return False
         self.next_match_index += 1
@@ -82,7 +82,5 @@ def contains(*items):
     equality.
 
     """
-    matchers = []
-    for item in items:
-        matchers.append(wrap_matcher(item))
+    matchers = [wrap_matcher(item) for item in items]
     return IsSequenceContainingInOrder(matchers)

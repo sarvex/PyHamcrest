@@ -1,8 +1,7 @@
 class GeneratorForm(object):
 
     def _sequence(self, *objects):
-        for i in objects:
-            yield i
+        yield from objects
 
 
 class SequenceForm(object):

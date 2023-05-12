@@ -31,7 +31,7 @@ class BaseDescription(Description):
             self.append_string_in_python_syntax(value)
         else:
             description = str(value)
-            if description[:1] == '<' and description[-1:] == '>':
+            if description.startswith('<') and description.endswith('>'):
                 self.append(description)
             else:
                 self.append('<')

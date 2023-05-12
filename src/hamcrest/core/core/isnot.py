@@ -22,10 +22,7 @@ class IsNot(BaseMatcher):
 
 
 def wrap_value_or_type(x):
-    if is_matchable_type(x):
-        return instance_of(x)
-    else:
-        return wrap_matcher(x)
+    return instance_of(x) if is_matchable_type(x) else wrap_matcher(x)
 
 
 def is_not(match):

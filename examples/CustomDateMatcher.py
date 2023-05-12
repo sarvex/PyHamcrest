@@ -17,9 +17,7 @@ class IsGivenDayOfWeek(BaseMatcher):
 
     def _matches(self, item):
         """Test whether item matches."""
-        if not hasmethod(item, 'weekday'):
-            return False
-        return item.weekday() == self.day
+        return False if not hasmethod(item, 'weekday') else item.weekday() == self.day
 
     def describe_to(self, description):
         """Describe the matcher."""

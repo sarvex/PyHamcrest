@@ -28,7 +28,7 @@ class IsSameTest(MatcherTest):
 
     def testDescriptionIncludesMemoryAddress(self):
         description = StringDescription()
-        expected = re.compile("same instance as " + ADDRESS_FORMAT + " 'abc'")
+        expected = re.compile(f"same instance as {ADDRESS_FORMAT} 'abc'")
 
         description.append_description_of(same_instance('abc'));
         self.assertTrue(expected.match(str(description)))
@@ -40,7 +40,7 @@ class IsSameTest(MatcherTest):
     def testMismatchDescriptionShowsActualArgumentAddress(self):
         matcher = same_instance('foo')
         description = StringDescription()
-        expected = re.compile("was " + ADDRESS_FORMAT + " 'hi'")
+        expected = re.compile(f"was {ADDRESS_FORMAT} 'hi'")
 
         result = matcher.matches('hi', description)
         self.assertFalse(result, 'Precondition: Matcher should not match item')
@@ -52,12 +52,14 @@ class IsSameTest(MatcherTest):
     def testDescribeMismatch(self):
         matcher = same_instance('foo')
         description = StringDescription()
-        expected = re.compile("was " + ADDRESS_FORMAT + " 'hi'")
+        expected = re.compile(f"was {ADDRESS_FORMAT} 'hi'")
 
         matcher.describe_mismatch('hi', description)
-        expected = re.compile("was " + ADDRESS_FORMAT + " 'hi'")
-        self.assertTrue(expected.match(str(description)),
-                        "Expected %s to match %s" % (str(matcher), str(description)))
+        expected = re.compile(f"was {ADDRESS_FORMAT} 'hi'")
+        self.assertTrue(
+            expected.match(str(description)),
+            f"Expected {str(matcher)} to match {str(description)}",
+        )
 
     def testDescribeMismatchWithNilShouldNotIncludeAddress(self):
         self.assert_describe_mismatch("was <None>", same_instance('foo'), None)

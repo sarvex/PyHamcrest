@@ -140,13 +140,15 @@ def has_properties(*keys_valuematchers, **kv_args):
                 base_dict[key] = wrap_shortcut(base_dict[key])
         except AttributeError:
             raise ValueError('single-argument calls to has_properties must pass a dict as the argument')
+    elif len(keys_valuematchers) % 2:
+        raise ValueError('has_properties requires key-value pairs')
     else:
-        if len(keys_valuematchers) % 2:
-            raise ValueError('has_properties requires key-value pairs')
-        base_dict = {}
-        for index in range(int(len(keys_valuematchers) / 2)):
-            base_dict[keys_valuematchers[2 * index]] = wrap_shortcut(keys_valuematchers[2 * index + 1])
-
+        base_dict = {
+            keys_valuematchers[2 * index]: wrap_shortcut(
+                keys_valuematchers[2 * index + 1]
+            )
+            for index in range(len(keys_valuematchers) // 2)
+        }
     for key, value in kv_args.items():
         base_dict[key] = wrap_shortcut(value)
 

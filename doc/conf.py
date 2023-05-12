@@ -212,9 +212,7 @@ latex_documents = [
 
 # PyHamcrest customization: Don't skip BaseMatcher's _matches method
 def skip_member(app, what, name, obj, skip, options):
-    if skip and str(obj).find('BaseMatcher._matches') >= 0:
-        return False
-    return skip
+    return False if skip and 'BaseMatcher._matches' in str(obj) else skip
 
 def setup(app):
     app.connect('autodoc-skip-member', skip_member)

@@ -16,11 +16,9 @@ matcher = ends_with(EXCERPT)
 class StringEndsWithTest(MatcherTest):
 
     def testEvaluatesToTrueIfArgumentContainsSpecifiedSubstring(self):
-        self.assert_does_not_match('excerpt at beginning',
-                                   matcher, EXCERPT + 'END')
-        self.assert_matches('excerpt at end', matcher, 'START' + EXCERPT)
-        self.assert_does_not_match('excerpt in middle',
-                                   matcher, 'START' + EXCERPT + 'END')
+        self.assert_does_not_match('excerpt at beginning', matcher, f'{EXCERPT}END')
+        self.assert_matches('excerpt at end', matcher, f'START{EXCERPT}')
+        self.assert_does_not_match('excerpt in middle', matcher, f'START{EXCERPT}END')
         self.assert_matches('excerpt repeated', matcher, EXCERPT + EXCERPT)
 
         self.assert_does_not_match('excerpt not in string',

@@ -16,16 +16,10 @@ def wrap_matcher(x):
         in an :py:func:`~hamcrest.core.core.isequal.equal_to` matcher.
 
     """
-    if isinstance(x, Matcher):
-        return x
-    else:
-        return equal_to(x)
+    return x if isinstance(x, Matcher) else equal_to(x)
 
 def is_matchable_type(expected_type):
     if isinstance(expected_type, type):
         return True
 
-    if isinstance(expected_type, six.class_types):
-        return True
-
-    return False
+    return isinstance(expected_type, six.class_types)

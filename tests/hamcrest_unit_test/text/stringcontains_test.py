@@ -46,12 +46,12 @@ TEST_MISMATCHING_STRINGS = (
 
 @pytest.mark.parametrize(['text'], TEST_MATCHING_STRINGS)
 def test_evaluates_true_if_argument_contains_substring(text, matcher):
-    assert_matches(matcher, text, "assert that %s matches %s" % (text, matcher))
+    assert_matches(matcher, text, f"assert that {text} matches {matcher}")
 
 
 @pytest.mark.parametrize(['text'], TEST_MISMATCHING_STRINGS)
 def test_evaluates_false_with_mismatch(text, matcher):
-    assert_does_not_match(matcher, text, "%s was not in string %s" % (matcher, text))
+    assert_does_not_match(matcher, text, f"{matcher} was not in string {text}")
 
 
 def testMatcherCreationRequiresString():
@@ -69,11 +69,8 @@ def test_successful_match_does_not_have_mismatch_description(matcher):
 
 @pytest.mark.parametrize(['text'], TEST_MISMATCHING_STRINGS)
 def test_mismatch_description(matcher, text):
-    if isinstance(text, six.string_types):
-        check_str = "'%s'" % text
-    else:
-        check_str = "%s" % text
-    assert_mismatch_description("was %s" % check_str, matcher, text)
+    check_str = f"'{text}'" if isinstance(text, six.string_types) else f"{text}"
+    assert_mismatch_description(f"was {check_str}", matcher, text)
 
 
 if __name__ == '__main__':

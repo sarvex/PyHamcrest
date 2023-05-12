@@ -69,8 +69,6 @@ class CallingTest(unittest.TestCase):
             calling(raise_exception)
         except AssertionError:
             self.fail()
-        else:
-            pass
 
     def testCallingObjectCallsProvidedFunction(self):
         method = Callable()

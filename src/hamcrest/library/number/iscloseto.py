@@ -35,9 +35,7 @@ class IsCloseTo(BaseMatcher):
         self.delta = delta
 
     def _matches(self, item):
-        if not isnumeric(item):
-            return False
-        return fabs(item - self.value) <= self.delta
+        return False if not isnumeric(item) else fabs(item - self.value) <= self.delta
 
     def describe_mismatch(self, item, mismatch_description):
         if not isnumeric(item):

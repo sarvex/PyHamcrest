@@ -22,12 +22,12 @@ class IsDictContainingEntries(BaseMatcher):
         for key in self.value_matchers:
 
             try:
-                if not key in dictionary:
+                if key not in dictionary:
                     if mismatch_description:
                         mismatch_description.append_text('no ')             \
-                                            .append_description_of(key)     \
-                                            .append_text(' key in ')        \
-                                            .append_description_of(dictionary)
+                                                .append_description_of(key)     \
+                                                .append_text(' key in ')        \
+                                                .append_description_of(dictionary)
                     return False
             except TypeError:
                 return self._not_a_dictionary(dictionary, mismatch_description)
@@ -41,8 +41,8 @@ class IsDictContainingEntries(BaseMatcher):
             if not value_matcher.matches(actual_value):
                 if mismatch_description:
                     mismatch_description.append_text('value for ')  \
-                                        .append_description_of(key) \
-                                        .append_text(' ')
+                                            .append_description_of(key) \
+                                            .append_text(' ')
                     value_matcher.describe_mismatch(actual_value, mismatch_description)
                 return False
 
@@ -121,13 +121,15 @@ def has_entries(*keys_valuematchers, **kv_args):
                 base_dict[key] = wrap_matcher(base_dict[key])
         except AttributeError:
             raise ValueError('single-argument calls to has_entries must pass a dict as the argument')
+    elif len(keys_valuematchers) % 2:
+        raise ValueError('has_entries requires key-value pairs')
     else:
-        if len(keys_valuematchers) % 2:
-            raise ValueError('has_entries requires key-value pairs')
-        base_dict = {}
-        for index in range(int(len(keys_valuematchers) / 2)):
-            base_dict[keys_valuematchers[2 * index]] = wrap_matcher(keys_valuematchers[2 * index + 1])
-
+        base_dict = {
+            keys_valuematchers[2 * index]: wrap_matcher(
+                keys_valuematchers[2 * index + 1]
+            )
+            for index in range(len(keys_valuematchers) // 2)
+        }
     for key, value in kv_args.items():
         base_dict[key] = wrap_matcher(value)
 

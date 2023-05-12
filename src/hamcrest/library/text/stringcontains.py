@@ -12,9 +12,7 @@ class StringContains(SubstringMatcher):
         super(StringContains, self).__init__(substring)
 
     def _matches(self, item):
-        if not hasmethod(item, 'find'):
-            return False
-        return item.find(self.substring) >= 0
+        return False if not hasmethod(item, 'find') else item.find(self.substring) >= 0
 
     def relationship(self):
         return 'containing'

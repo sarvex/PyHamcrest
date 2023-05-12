@@ -12,9 +12,7 @@ class StringEndsWith(SubstringMatcher):
         super(StringEndsWith, self).__init__(substring)
 
     def _matches(self, item):
-        if not hasmethod(item, 'endswith'):
-            return False
-        return item.endswith(self.substring)
+        return item.endswith(self.substring) if hasmethod(item, 'endswith') else False
 
     def relationship(self):
         return 'ending with'

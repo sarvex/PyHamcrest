@@ -19,11 +19,9 @@ stringstartswith = starts_with(EXCERPT)
 class StringStartsWithTest(MatcherTest):
 
     def testEvaluatesToTrueIfArgumentContainsSpecifiedSubstring(self):
-        self.assert_matches('excerpt at beginning', matcher, EXCERPT + 'END')
-        self.assert_does_not_match('excerpt at end',
-                                   matcher, 'START' + EXCERPT)
-        self.assert_does_not_match('excerpt in middle',
-                                   matcher, 'START' + EXCERPT + 'END')
+        self.assert_matches('excerpt at beginning', matcher, f'{EXCERPT}END')
+        self.assert_does_not_match('excerpt at end', matcher, f'START{EXCERPT}')
+        self.assert_does_not_match('excerpt in middle', matcher, f'START{EXCERPT}END')
         self.assert_matches('excerpt repeated', matcher, EXCERPT + EXCERPT)
 
         self.assert_does_not_match('excerpt not in string',matcher, 'whatever')

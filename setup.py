@@ -32,7 +32,7 @@ extra_attributes = {}
 
 params = dict(
     name='PyHamcrest',
-    version=__version__,  #flake8:noqa
+    version=__version__,
     author='Chris Rose',
     author_email='offline@offby1.net',
     description='Hamcrest framework for matcher objects',
@@ -40,9 +40,9 @@ params = dict(
     platforms=['All'],
     keywords='hamcrest matchers pyunit unit test testing unittest unittesting',
     url='https://github.com/hamcrest/PyHamcrest',
-    download_url='http://pypi.python.org/packages/source/P/PyHamcrest/PyHamcrest-%s.tar.gz' % __version__,
+    download_url=f'http://pypi.python.org/packages/source/P/PyHamcrest/PyHamcrest-{__version__}.tar.gz',
     packages=find_packages('src'),
-    package_dir = {'': 'src'},
+    package_dir={'': 'src'},
     provides=['hamcrest'],
     long_description=read('README.rst'),
     install_requires=['setuptools', 'six'],
@@ -62,9 +62,9 @@ params = dict(
         'Topic :: Software Development',
         'Topic :: Software Development :: Quality Assurance',
         'Topic :: Software Development :: Testing',
-        ],
-    **extra_attributes
-    )
+    ],
+    **extra_attributes,
+)
 
 all_params = dict(params.items(), **extra_attributes)
 setup(**all_params)
